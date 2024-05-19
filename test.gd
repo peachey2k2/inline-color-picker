@@ -14,6 +14,10 @@ func f(node:Node, level:int):
 	for child in node.get_children(true):
 		f(child, level+1)
 		Color(1,1,1,1)
+		Color(1,1,1,1)
+		Color(1,1,1,1)
+		Color(1,1,1,1)
+		var a = Color(1,1,1,1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
