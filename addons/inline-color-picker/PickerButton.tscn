@@ -1,14 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://0alaqp3smdcs"]
+[gd_scene load_steps=8 format=3 uid="uid://0alaqp3smdcs"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oastw"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_color = Color(0.0999859, 0.099986, 0.099986, 1)
-shadow_size = 2
+[ext_resource type="Script" path="res://addons/inline-color-picker/PickerButton.gd" id="1_5dajd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s3ti1"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.568627)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf3x5"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.384314)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wve4k"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.627451)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 3
+
+[sub_resource type="Theme" id="Theme_640lw"]
+Button/styles/hover = SubResource("StyleBoxFlat_s3ti1")
+Button/styles/normal = SubResource("StyleBoxFlat_mf3x5")
+Button/styles/pressed = SubResource("StyleBoxFlat_wve4k")
+
+[sub_resource type="Gradient" id="Gradient_jpw3s"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0.886275, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q0fyj"]
+gradient = SubResource("Gradient_jpw3s")
+width = 1
+height = 1
 
 [node name="PickerButton" type="Button"]
-offset_right = 50.0
+offset_right = 20.0
 offset_bottom = 20.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_oastw")
+theme = SubResource("Theme_640lw")
+icon = SubResource("GradientTexture2D_q0fyj")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("1_5dajd")

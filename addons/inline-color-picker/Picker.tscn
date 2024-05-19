@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2e8sxrtmptdy"]
+
+[ext_resource type="Script" path="res://addons/inline-color-picker/PickerPanel.gd" id="1_jxnps"]
+
+[node name="PickerBase" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_jxnps")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 298.0
+offset_bottom = 580.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 1
+
+[node name="ColorPicker" type="ColorPicker" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 298.0
+offset_bottom = 580.0
+grow_horizontal = 2
+grow_vertical = 2
