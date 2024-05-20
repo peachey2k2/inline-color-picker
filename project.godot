@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Inline-color-picker"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -24,4 +24,4 @@ project/assembly_name="Inline-color-picker"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/discord-rpc-gd/plugin.cfg", "res://addons/inline-color-picker/plugin.cfg")
+enabled=PackedStringArray("res://addons/cba/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg", "res://addons/inline-color-picker/plugin.cfg")

@@ -25,6 +25,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 3
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wve4k"]
 content_margin_left = 2.0
@@ -46,7 +47,7 @@ Button/styles/pressed = SubResource("StyleBoxFlat_wve4k")
 [sub_resource type="Gradient" id="Gradient_jpw3s"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0.886275, 1)
+colors = PackedColorArray(1, 1, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_q0fyj"]
 gradient = SubResource("Gradient_jpw3s")
