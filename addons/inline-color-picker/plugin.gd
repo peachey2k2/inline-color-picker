@@ -19,10 +19,6 @@ var regex:RegEx
 func _enter_tree():
 	EditorInterface.get_script_editor().editor_script_changed.connect(_on_script_changed)
 	editor_settings = EditorInterface.get_editor_settings()
-	editor_settings.settings_changed.connect(func():
-		for s in editor_settings.get_changed_settings(): _setting_updated(s))
-	for s in checked_settings:
-		settings[s] = editor_settings.get(s)
 	button_base = Node2D.new()
 	for i in POOL_SIZE:
 		var ins := PICKER_BUTTON.instantiate()
@@ -44,16 +40,6 @@ func _disable_plugin():
 	EditorInterface.get_script_editor().editor_script_changed.disconnect(_on_script_changed)
 	button_base.queue_free()
 	picker.queue_free()
-
-var settings := {}
-var checked_settings:Array[String]= [
-	"interface/editor/code_font_size",
-	"text_editor/appearance/whitespace/line_spacing",
-	"text_editor/behavior/indent/size",
-]
-func _setting_updated(setting:String):
-	if not checked_settings.has(setting): return
-	settings[setting.get_slice("/", setting.get_slice_count("/")-1)] = editor_settings.get(setting)
 
 var last_scroll := Vector2.ZERO
 func _on_scroll_updated(scroll:Vector2):

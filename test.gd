@@ -13,10 +13,10 @@ func f(node:Node, level:int):
 
 	for child in node.get_children(true):
 		f(child, level+1)
-		Color(0.793, 0.1239, 0.7668, 1)
+		Color(0.4353, 0.8196, 0.749, 1)
 		Color(0.7216, 0.9935, 1, 1)
-		Color(0,1,0,1)
-		Color(0, 0, 0, 1)
+		Color(0.0194, 0.0218, 0.0469, 1)
+		Color(1, 0.043, 0.043, 1)
 		Color(0.5625, 0.3911, 0.31, 1)
 		var a = Color(0.6914, 0.6914, 0.5645, 1)
 
