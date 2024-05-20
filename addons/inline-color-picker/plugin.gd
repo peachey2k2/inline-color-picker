@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 const POOL_SIZE := 50
-const UPDATE_INTERVAL := 0.5
+const UPDATE_INTERVAL := 0.2
 
 const PICKER = preload("res://addons/inline-color-picker/Picker.tscn")
 const PICKER_BUTTON = preload("res://addons/inline-color-picker/PickerButton.tscn")
@@ -26,13 +26,24 @@ func _enter_tree():
 	button_base = Node2D.new()
 	for i in POOL_SIZE:
 		var ins := PICKER_BUTTON.instantiate()
+		ins.icon = ins.icon.duplicate(true)
 		button_base.add_child(ins)
 		ins.call_picker.connect(call_picker)
-		
-	picker = PICKER.instantiate()
 	
 	regex = RegEx.new()
 	regex.compile("Color\\((?<c>.*)\\)")
+		
+	picker = PICKER.instantiate()
+	await picker.ready
+	picker.base.color_changed.connect(_picker_color_changed)
+	picker.closed.connect(func(): timer.paused = false)
+	
+	_on_script_changed(null)
+
+func _disable_plugin():
+	EditorInterface.get_script_editor().editor_script_changed.disconnect(_on_script_changed)
+	button_base.queue_free()
+	picker.queue_free()
 
 var settings := {}
 var checked_settings:Array[String]= [
@@ -100,10 +111,27 @@ func update_positions():
 		var color_str := res.get_string("c")
 		pos.x += (color_str.length() + 8) * (letter_dims.x + 0.5) # no idk why it needs an extra 0.5 ass pull
 		
+		var split := color_str.split(",")
+		var color := Color.WHITE
+		var flag := false
+		if split.size() > 4: continue
+		if split.size() > 1: 
+			for i in split.size():
+				var s := split[i]
+				s = s.strip_edges()
+				if not s.is_valid_float():
+					flag = true
+					break
+				color[i] = s.to_float()
+		if flag: continue
+		
 		var button:Button = button_base.get_child(idx)
 		button.show()
 		button.position = pos
 		button.ipos = last
+		button.sel_end = last.x+color_str.length()+7
+		button.color = color
+		#base_editor.select(last.y, last.x+6, last.y, last.x+color_str.length()+7)
 		
 		idx += 1
 	
@@ -112,12 +140,20 @@ func update_positions():
 
 func call_picker(button:Button):
 	var editor_size := EditorInterface.get_base_control().size
+	picker.base.color = button.color
 	picker.panel.position = Vector2(
 		min(button.global_position.x, editor_size.x - picker.panel.size.x),
 		min(button.global_position.y, editor_size.y - picker.panel.size.y)
 	)
 	picker.panel.grab_focus()
 	picker.show()
+	base_editor.select(button.ipos.y, button.sel_end, button.ipos.y, button.ipos.x+5)
+	timer.paused = true
 
-func _disable_plugin():
-	EditorInterface.get_script_editor().editor_script_changed.disconnect(_on_script_changed)
+func _picker_color_changed(col:Color):
+	var cx := base_editor.get_caret_column()
+	var cy := base_editor.get_caret_line()
+	var s := str(col)
+	base_editor.insert_text_at_caret(s)
+	base_editor.select(cy, cx+s.length()+5, cy, cx)
+
