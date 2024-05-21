@@ -117,7 +117,6 @@ func update_positions():
 		button.ipos = last
 		button.sel_end = last.x+color_str.length()+7
 		button.color = color
-		#base_editor.select(last.y, last.x+6, last.y, last.x+color_str.length()+7)
 		
 		idx += 1
 	
